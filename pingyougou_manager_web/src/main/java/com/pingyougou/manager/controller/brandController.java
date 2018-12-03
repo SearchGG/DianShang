@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/brand")
-public class BrandController {
+public class brandController {
 
     @Reference
     private TbBrandService tbBrandService;

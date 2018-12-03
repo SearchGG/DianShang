@@ -18,6 +18,8 @@ public class BrandController {
     @RequestMapping("/findAll")
     public List<TbBrand> findAll(){
         return tbBrandService.findAll();
+
     }
+
 
 }

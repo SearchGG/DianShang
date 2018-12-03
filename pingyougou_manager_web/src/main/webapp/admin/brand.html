@@ -12,15 +12,43 @@
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../plugins/angularjs/angular.min.js"></script>
+	<script src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+
 
 	<script type="text/javascript">
-        var app=angular.module('pyg',[]);//定义模块
+        var app=angular.module('pyg',['pagination']);//定义模块
         app.controller('brandController',function($scope,$http){
-            //读取列表数据绑定到表单
+           /* //读取列表数据绑定到表单
             $scope.findAll=function(){
                 $http.get('../brand/findAll.do').success(
                     function (response) {
                         $scope.list=response;
+                    }
+                );
+            }*/
+            //重新加载列表 数据
+            $scope.reloadList=function(){
+			//切换页码
+                $scope.findPage( $scope.paginationConf.currentPage,
+                    $scope.paginationConf.itemsPerPage);
+            }
+            //分页控件配置
+            $scope.paginationConf = {
+                currentPage: 1,
+                totalItems: 10,
+                itemsPerPage: 10,
+                perPageOptions: [10, 20, 30, 40, 50],
+                onChange: function(){
+                    $scope.reloadList();//重新加载
+                }
+            };
+			//分页
+            $scope.findPage=function(page,rows){
+                $http.get('../brand/findPage.do?page='+page+'&rows='+rows).success(
+                    function(response){
+                        $scope.list=response.rows;
+                        $scope.paginationConf.totalItems=response.total;//更新总记录数
                     }
                 );
             }
@@ -29,7 +57,7 @@
 	</script>
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="brandController" ng-init="findAll()">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="brandController" >
   <!-- .box-body -->
                     <div class="box-header with-border">
                         <h3 class="box-title">品牌管理</h3>
@@ -84,7 +112,7 @@
 			                      </tbody>
 			                  </table>
 			                  <!--数据列表/-->                        
-							  
+							  <tm-pagination conf="paginationConf"></tm-pagination>
 							 
                         </div>
                         <!-- 数据表格 /-->

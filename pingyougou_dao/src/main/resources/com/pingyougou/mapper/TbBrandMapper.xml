@@ -4,4 +4,7 @@
     <select id="findAll" resultType="tbbrand">
         select id,name,first_char firstChar from tb_brand
     </select>
+    <insert id="insert" parameterType="tbbrand">
+        insert into tb_brand values(#{id},#{name},#{firstChar})
+    </insert>
 </mapper>

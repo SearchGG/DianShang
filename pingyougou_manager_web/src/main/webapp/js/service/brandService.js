@@ -20,5 +20,8 @@ app.service('brandService',function ($http) {
     this.dele=function (ids) {
         return $http.get('../brand/delete.do?ids='+ids)
     }
-
+    //条件分页查询
+    this.search=function (page,rows,searchEntity) {
+        return  $http.post('../brand/search.do?page=' + page + '&rows=' + rows,searchEntity);
+    }
 });

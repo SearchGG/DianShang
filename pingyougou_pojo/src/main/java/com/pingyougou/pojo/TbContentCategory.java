@@ -2,12 +2,10 @@ package com.pingyougou.pojo;
 
 import java.io.Serializable;
 
-public class TbBrand implements Serializable {
+public class TbContentCategory implements Serializable {
     private Long id;
 
     private String name;
-
-    private String firstChar;
 
     public Long getId() {
         return id;
@@ -23,13 +21,5 @@ public class TbBrand implements Serializable {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public String getFirstChar() {
-        return firstChar;
-    }
-
-    public void setFirstChar(String firstChar) {
-        this.firstChar = firstChar == null ? null : firstChar.trim();
     }
 }

@@ -20,6 +20,17 @@ app.controller('brandController', function ($scope,$controller,brandService ) {
             }
         );
     }
+    //条件分页
+    $scope.searchEntity={};
+
+    $scope.search= function (page, rows) {
+        brandService.search(page,rows,$scope.searchEntity).success(
+            function (response) {
+                $scope.list = response.rows;
+                $scope.paginationConf.totalItems = response.total;//更新总记录数
+            }
+        );
+    }
     //添加
     $scope.save = function () {
 

@@ -1,41 +1,31 @@
 package com.pingyougou.mapper;
 
 import com.pingyougou.pojo.TbBrand;
+import com.pingyougou.pojo.TbBrandExample;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface TbBrandMapper {
+    int countByExample(TbBrandExample example);
 
-    /**
-     * 查询所有
-     * @return
-     */
-    public List<TbBrand> findAll();
+    int deleteByExample(TbBrandExample example);
 
-    /**
-     * 添加品牌信息
-     * @param tbBrand
-     */
-    public void insert(TbBrand tbBrand);
+    int deleteByPrimaryKey(Long id);
 
-    /**
-     * 修改信息
-     * @param tbBrand
-     */
-    public void updateByBrandiId(TbBrand tbBrand);
+    int insert(TbBrand record);
 
-    /**
-     * 根据id查询数据 回显
-     * @param id
-     * @return
-     */
-    public TbBrand findOneById(Long id);
+    int insertSelective(TbBrand record);
 
-    /**
-     * 删除
-     * @param id
-     */
-    void deleteById(Long id);
+    List<TbBrand> selectByExample(TbBrandExample example);
 
+    TbBrand selectByPrimaryKey(Long id);
 
+    int updateByExampleSelective(@Param("record") TbBrand record, @Param("example") TbBrandExample example);
+
+    int updateByExample(@Param("record") TbBrand record, @Param("example") TbBrandExample example);
+
+    int updateByPrimaryKeySelective(TbBrand record);
+
+    int updateByPrimaryKey(TbBrand record);
 }

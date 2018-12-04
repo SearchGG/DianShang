@@ -12,7 +12,7 @@ public interface TbBrandService {
 
     //分页查询
     public PageResult findPage(int pageNum,int pageSize);
-    public PageResult findPage(TbBrand tbBrand,int pageNum,int pageSize);
+    public PageResult findPage(int pageNum,int pageSize,TbBrand tbBrand);
 
     //添加品牌
     public void add(TbBrand tbBrand);

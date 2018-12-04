@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/brand")
-public class brandController {
+public class BrandController {
 
     @Reference
     private TbBrandService tbBrandService;
@@ -106,8 +106,8 @@ public class brandController {
      * @return
      */
     @RequestMapping("/search")
-    public PageResult search(@RequestBody TbBrand brand, int page, int rows ) {
-        return tbBrandService.findPage(brand, page, rows);
+    public PageResult search( int page, int rows, @RequestBody TbBrand brand) {
+        return tbBrandService.findPage( page, rows,brand);
 
     }
 }

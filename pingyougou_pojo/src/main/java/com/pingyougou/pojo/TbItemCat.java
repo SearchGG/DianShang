@@ -2,12 +2,14 @@ package com.pingyougou.pojo;
 
 import java.io.Serializable;
 
-public class TbBrand implements Serializable {
+public class TbItemCat implements Serializable {
     private Long id;
+
+    private Long parentId;
 
     private String name;
 
-    private String firstChar;
+    private Long typeId;
 
     public Long getId() {
         return id;
@@ -15,6 +17,14 @@ public class TbBrand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public String getName() {
@@ -25,11 +35,11 @@ public class TbBrand implements Serializable {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getFirstChar() {
-        return firstChar;
+    public Long getTypeId() {
+        return typeId;
     }
 
-    public void setFirstChar(String firstChar) {
-        this.firstChar = firstChar == null ? null : firstChar.trim();
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
     }
 }

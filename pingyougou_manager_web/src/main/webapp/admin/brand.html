@@ -14,95 +14,11 @@
     <script src="../plugins/angularjs/angular.min.js"></script>
     <script src="../plugins/angularjs/pagination.js"></script>
     <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
-
-
-    <script type="text/javascript">
-        var app = angular.module('pyg', ['pagination']);//定义模块
-        app.controller('brandController', function ($scope, $http) {
-            /* //读取列表数据绑定到表单
-             $scope.findAll=function(){
-                 $http.get('../brand/findAll.do').success(
-                     function (response) {
-                         $scope.list=response;
-                     }
-                 );
-             }*/
-            //重新加载列表 数据
-            $scope.reloadList = function () {
-                //切换页码
-                $scope.findPage($scope.paginationConf.currentPage,
-                    $scope.paginationConf.itemsPerPage);
-            }
-            //分页控件配置
-            $scope.paginationConf = {
-                currentPage: 1,
-                totalItems: 10,
-                itemsPerPage: 10,
-                perPageOptions: [10, 20, 30, 40, 50],
-                onChange: function () {
-                    $scope.reloadList();//重新加载
-                }
-            };
-            //分页
-            $scope.findPage = function (page, rows) {
-                $http.get('../brand/findPage.do?page=' + page + '&rows=' + rows).success(
-                    function (response) {
-                        $scope.list = response.rows;
-                        $scope.paginationConf.totalItems = response.total;//更新总记录数
-                    }
-                );
-            }
-            //添加
-            $scope.save = function () {
-
-                var methodName = 'add.do';
-                if ($scope.entity.id != null) {
-                    methodName = 'update.do';
-                }
-
-                $http.post('../brand/' + methodName, $scope.entity).success(function (response) {
-                    if (response.success) {
-                        //重新查询
-                        $scope.reloadList();//重新加载
-                    } else {
-                        alert(response.message);
-                    }
-                });
-            }
-            //根据id查询实体
-            $, $scope.findOne = function (id) {
-                $http.get('../brand/findOne.do?id=' + id).success(function (repsonse) {
-                    $scope.entity = repsonse;
-                });
-            }
-            //批量删除
-            //更新复选框
-            $scope.selectIds=[];
-            $scope.updateSelection=function ($event,id) {
-                if($event.target.checked){//如果是被选中,则增加到数组
-                    $scope.selectIds.push(id)
-                }else{
-                    var idx = $scope.selectIds.indexOf(id);
-                    $scope.selectIds.splice(idx, 1);//删除
-                }
-            }
-            //删除操作
-            $scope.dele=function () {
-                if (confirm("确定要删除吗？")){
-                    $http.get('../brand/delete.do?ids='+$scope.selectIds).success(function(response){
-                        if(response.success){
-                            $scope.reloadList();//刷新列表
-                        }
-                    });
-                }
-
-            }
-            //功能
-
-        });
-
-
-    </script>
+    <script src="../js/base.js"></script>
+    <script src="../js/base_pagination.js"></script>
+    <script src="../js/service/brandService.js"></script>
+    <script src="../js/controller/brandController.js"></script>
+    <script src="../js/controller/baseController.js"></script>
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="brandController">
@@ -133,7 +49,9 @@
         </div>
         <div class="box-tools pull-right">
             <div class="has-feedback">
-
+                品牌名称:<input ng-model="searchEntity.name">
+                品牌首字母:<input ng-model="searchEntity.firstChar">
+                <button class="btn btn-default" ng-click="reloadList()">查询</button>
             </div>
         </div>
         <!--工具栏/-->

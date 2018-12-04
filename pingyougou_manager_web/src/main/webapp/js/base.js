@@ -1,0 +1,1 @@
+var app = angular.module('pyg', []);//定义模块

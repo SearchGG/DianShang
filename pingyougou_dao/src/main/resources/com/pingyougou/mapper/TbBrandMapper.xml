@@ -11,10 +11,28 @@
     </insert>
     <!--根据id进行修改-->
     <update id="updateByBrandiId" parameterType="tbbrand">
-        update tb_brand set name=#{name},first_char=#{firstChar} where id=#{id};
+        update tb_brand set name=#{name},first_char=#{firstChar} where id=#{id}
     </update>
     <!--根据id进行查询-->
-    <select id="findOne" parameterType="long" resultType="tbBrand">
+    <select id="findOneById" parameterType="long" resultType="tbBrand">
         select id,name,first_char firstChar from tb_brand where id=#{id}
+    </select>
+    <!--删除-->
+    <delete id="deleteById" parameterType="long">
+        DELETE FROM tb_brand where id =#{id}
+    </delete>
+    <!--条件查询-->
+    <select id="findPage" parameterType="queryVo">
+        select * from tb_brand
+        <where>
+            <if test="brand.name!=null and brand.name!=''">
+                and name like "%"#{brand.name}"%"
+            </if>
+            <if test="brand.firstChar!=null and
+brand.firstChar!=''">
+                and first_char like "%"#{brand.firstChar}"%"
+            </if>
+        </where>
+        limit #{page},#{rows}
     </select>
 </mapper>

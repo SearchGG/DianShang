@@ -12,6 +12,7 @@ public interface TbBrandService {
 
     //分页查询
     public PageResult findPage(int pageNum,int pageSize);
+    public PageResult findPage(TbBrand tbBrand,int pageNum,int pageSize);
 
     //添加品牌
     public void add(TbBrand tbBrand);
@@ -19,4 +20,7 @@ public interface TbBrandService {
     public void update(TbBrand tbBrand);
     //根据id查询
     public TbBrand findOne(Long id);
+
+    //批量删除
+    void delete(Long[] ids);
 }

@@ -31,4 +31,11 @@ public interface TbBrandMapper {
      */
     public TbBrand findOneById(Long id);
 
+    /**
+     * 删除
+     * @param id
+     */
+    void deleteById(Long id);
+
+
 }

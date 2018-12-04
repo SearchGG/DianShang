@@ -34,6 +34,12 @@ public class BrandServiceImpl implements TbBrandService {
     }
 
     @Override
+    public PageResult findPage(TbBrand tbBrand, int pageNum, int pageSize) {
+
+        return null;
+    }
+
+    @Override
     public void add(TbBrand tbBrand) {
         tbBrandMapper.insert(tbBrand);
     }
@@ -46,5 +52,15 @@ public class BrandServiceImpl implements TbBrandService {
     @Override
     public TbBrand findOne(Long id) {
         return tbBrandMapper.findOneById(id);
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+
+        if (ids != null && ids.length > 0) {
+            for (Long id : ids) {
+                tbBrandMapper.deleteById(id);
+            }
+        }
     }
 }

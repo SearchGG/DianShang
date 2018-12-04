@@ -52,17 +52,21 @@
                     }
                 );
             }
+			//添加
+            $scope.save=function () {
+                $http.post('../brand/add.do',$scope.entity).success(function (response) {
+                    if(response.success){
+                        //重新查询
+                        $scope.reloadList();//重新加载
+                    }else{
+                        alert(response.message);
+                    }
+                });
+            }
+            //下一个功能
+
         });
-        $scope.save=function () {
-			$http.post('../brand/add.do',$scope.entity).success(function (response) {
-                if(response.success){
-				//重新查询
-                    $scope.reloadList();//重新加载
-                }else{
-                    alert(response.message);
-                }
-            });
-        }
+
 
 	</script>
 </head>

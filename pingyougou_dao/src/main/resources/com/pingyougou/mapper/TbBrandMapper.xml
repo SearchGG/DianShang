@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pingyougou.mapper.TbBrandMapper">
+    <!--查询所有-->
     <select id="findAll" resultType="tbbrand">
         select id,name,first_char firstChar from tb_brand
     </select>
+    <!--根据id添加-->
     <insert id="insert" parameterType="tbbrand">
         insert into tb_brand values(#{id},#{name},#{firstChar})
     </insert>
+    <!--根据id进行修改-->
+    <update id="updateByBrandiId" parameterType="tbbrand">
+        update tb_brand set name=#{name},first_char=#{firstChar} where id=#{id};
+    </update>
+    <!--根据id进行查询-->
+    <select id="findOne" parameterType="long" resultType="tbBrand">
+        select id,name,first_char firstChar from tb_brand where id=#{id}
+    </select>
 </mapper>

@@ -51,4 +51,30 @@ public class brandController {
         }
     }
 
+    /**
+     * 修改信息
+     * @param tbBrand
+     * @return
+     */
+    @RequestMapping("/update")
+    public pingyougouResult update(@RequestBody TbBrand tbBrand){
+        try {
+            tbBrandService.update(tbBrand);
+            return new pingyougouResult(true,"修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new pingyougouResult(false,"修改失败");
+        }
+    }
+
+    /**
+     * 根据id获取实体
+     * @param id
+     * @return
+     */
+    @RequestMapping("/findOne")
+    public TbBrand findOne(Long id){
+        return tbBrandService.findOne(id);
+    }
+
 }

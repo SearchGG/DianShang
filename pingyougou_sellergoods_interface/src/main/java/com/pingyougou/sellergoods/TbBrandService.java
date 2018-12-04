@@ -15,4 +15,8 @@ public interface TbBrandService {
 
     //添加品牌
     public void add(TbBrand tbBrand);
+    //修改
+    public void update(TbBrand tbBrand);
+    //根据id查询
+    public TbBrand findOne(Long id);
 }

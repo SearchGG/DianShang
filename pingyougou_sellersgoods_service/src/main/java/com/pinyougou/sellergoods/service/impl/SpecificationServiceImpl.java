@@ -9,6 +9,7 @@ import com.pingyougou.mapper.TbSpecificationOptionMapper;
 import com.pingyougou.pojo.TbSpecification;
 import com.pingyougou.pojo.TbSpecificationExample;
 import com.pingyougou.pojo.TbSpecificationOption;
+import com.pingyougou.pojo.TbSpecificationOptionExample;
 import com.pingyougou.sellergoods.SpecificationService;
 import com.pingyougou.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,53 @@ public class SpecificationServiceImpl implements SpecificationService {
                    specificationOption.setSpecId(tbSpecification.getId());
                     specificationOptionMapper.insert(specificationOption);
                 }
-
-
     }
+
+    /**
+     * 数据回显
+     * @param id
+     * @return
+     */
+    @Override
+    public Specification findOne(long id) {
+        //根据id查询数据存到组合实体类
+        Specification specification = new Specification();
+        TbSpecification tbSpecification = specificationMapper.selectByPrimaryKey(id);
+        specification.setTbSpecification(tbSpecification);
+
+        //条件查询规格选项
+        TbSpecificationOptionExample example=new TbSpecificationOptionExample();
+        TbSpecificationOptionExample.Criteria criteria = example.createCriteria();
+        criteria.andSpecIdEqualTo(id);
+        List<TbSpecificationOption> specificationOptions = specificationOptionMapper.selectByExample(example);
+        specification.setSpecificationOptions(specificationOptions);
+
+        return specification;
+    }
+
+    /**
+     * 修改规则信息及规格选项
+     * @param specification
+     */
+    @Override
+    public void update(Specification specification) {
+        //修改规格信息
+        TbSpecification tbSpecification = specification.getTbSpecification();
+        specificationMapper.updateByPrimaryKey(tbSpecification);
+
+        //拼装条件进行删除操作
+        TbSpecificationOptionExample example=new TbSpecificationOptionExample();
+        TbSpecificationOptionExample.Criteria criteria = example.createCriteria();
+        criteria.andSpecIdEqualTo(tbSpecification.getId());
+        specificationOptionMapper.deleteByExample(example);
+
+        //进行规则选项的添加
+        List<TbSpecificationOption> specificationOptions = specification.getSpecificationOptions();
+        for (TbSpecificationOption specificationOption : specificationOptions) {
+            specificationOption.setSpecId(tbSpecification.getId());
+            specificationOptionMapper.insert(specificationOption);
+        }
+    }
+
+    
 }

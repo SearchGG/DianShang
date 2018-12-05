@@ -43,5 +43,29 @@ public class SpecificationController {
         }
     }
 
+    /**
+     * 根据id进行数据回显
+     * @return
+     */
+    @RequestMapping("/findOne")
+    public Specification findOne(Long id){
+       return specificationService.findOne(id);
+    }
+
+    /**
+     *修改信息
+     * @param specification
+     * @return
+     */
+    @RequestMapping("/update")
+    public pingyougouResult update(@RequestBody Specification specification){
+        try {
+            specificationService.update(specification);
+            return new pingyougouResult(true, "修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new pingyougouResult(false, "修改失败");
+        }
+    }
 
 }

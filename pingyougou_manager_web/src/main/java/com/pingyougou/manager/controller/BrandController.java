@@ -2,7 +2,7 @@ package com.pingyougou.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pingyougou.pojo.TbBrand;
-import com.pingyougou.sellergoods.TbBrandService;
+import com.pingyougou.sellergoods.BrandService;
 import com.pingyougou.utils.PageResult;
 import com.pingyougou.utils.pingyougouResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,11 +16,11 @@ import java.util.List;
 public class BrandController {
 
     @Reference
-    private TbBrandService tbBrandService;
+    private BrandService brandService;
 
     @RequestMapping("/findAll")
     public List<TbBrand> findAll() {
-        return tbBrandService.findAll();
+        return brandService.findAll();
 
     }
 
@@ -34,7 +34,7 @@ public class BrandController {
     @RequestMapping("/findPage")
     public PageResult findPage(int page, int rows) {
 
-        return tbBrandService.findPage(page, rows);
+        return brandService.findPage(page, rows);
     }
 
     /**
@@ -45,7 +45,7 @@ public class BrandController {
     @RequestMapping("/add")
     public pingyougouResult add(@RequestBody TbBrand tbBrand) {
         try {
-            tbBrandService.add(tbBrand);
+            brandService.add(tbBrand);
             return new pingyougouResult(true, "添加成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class BrandController {
      */
     @RequestMapping("/findOne")
     public TbBrand findOne(Long id) {
-        return tbBrandService.findOne(id);
+        return brandService.findOne(id);
 
     }
 
@@ -74,7 +74,7 @@ public class BrandController {
     @RequestMapping("/update")
     public pingyougouResult update(@RequestBody TbBrand tbBrand) {
         try {
-            tbBrandService.update(tbBrand);
+            brandService.update(tbBrand);
             return new pingyougouResult(true, "修改成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,7 +90,7 @@ public class BrandController {
     @RequestMapping("/delete")
     public pingyougouResult delete(Long[] ids){
         try {
-            tbBrandService.delete(ids);
+            brandService.delete(ids);
             return new pingyougouResult(true, "删除成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +107,10 @@ public class BrandController {
      */
     @RequestMapping("/search")
     public PageResult search( int page, int rows, @RequestBody TbBrand brand) {
-        return tbBrandService.findPage( page, rows,brand);
+        return brandService.findPage( page, rows,brand);
 
     }
+
+
+
 }

@@ -6,7 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.pingyougou.mapper.TbBrandMapper;
 import com.pingyougou.pojo.TbBrand;
 import com.pingyougou.pojo.TbBrandExample;
-import com.pingyougou.sellergoods.TbBrandService;
+import com.pingyougou.sellergoods.BrandService;
 import com.pingyougou.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class BrandServiceImpl implements TbBrandService {
+public class BrandServiceImpl implements BrandService {
 
     @Autowired
     private TbBrandMapper brandMapper;

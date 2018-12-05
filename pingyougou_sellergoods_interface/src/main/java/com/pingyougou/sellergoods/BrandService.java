@@ -5,7 +5,7 @@ import com.pingyougou.utils.PageResult;
 
 import java.util.List;
 
-public interface TbBrandService {
+public interface BrandService {
 
     //查询所有
     public List<TbBrand> findAll();

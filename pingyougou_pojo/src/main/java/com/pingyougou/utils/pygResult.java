@@ -2,12 +2,12 @@ package com.pingyougou.utils;
 
 import java.io.Serializable;
 
-public class pingyougouResult implements Serializable {
+public class pygResult implements Serializable {
 
     private boolean success;
     private String message;
 
-    public pingyougouResult(boolean success, String message) {
+    public pygResult(boolean success, String message) {
         this.success = success;
         this.message = message;
     }

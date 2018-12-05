@@ -20,4 +20,6 @@ public interface SpecificationService {
     //修改数据
     public void update(Specification specification);
 
+    //删除数据
+    public void delete(long[] ids);
 }

@@ -51,7 +51,7 @@ app.controller('brandController', function ($scope,$controller,brandService ) {
         });
     }
     //根据id查询实体
-    $, $scope.findOne = function (id) {
+    $scope.findOne = function (id) {
         brandService.findOne(id).success(function (repsonse) {
             $scope.entity = repsonse;
         });

@@ -35,7 +35,7 @@ app.controller('specificationController', function ($scope,$controller,specifica
     $scope.save = function () {
 
         var method =null;
-        if ($scope.entity.id != null) {
+        if ($scope.entity.tbSpecification.id!= null) {
             method =specificationService.update($scope.entity);
         }else{
             method =specificationService.add($scope.entity);
@@ -51,7 +51,7 @@ app.controller('specificationController', function ($scope,$controller,specifica
         });
     }
     //根据id查询实体
-    $, $scope.findOne = function (id) {
+     $scope.findOne = function (id) {
         specificationService.findOne(id).success(function (repsonse) {
             $scope.entity = repsonse;
         });
@@ -68,6 +68,16 @@ app.controller('specificationController', function ($scope,$controller,specifica
         }
 
     }
-    //功能
 
+    //定义
+    $scope.entity={specificationOptions:[]};
+
+    //新增规格选项
+    $scope.addRow=function () {
+        $scope.entity.specificationOptions.push({});
+    }
+    //删除规格选项
+    $scope.deleRow=function (index) {
+        $scope.entity.specificationOptions.splice(index,1);
+    }
 });

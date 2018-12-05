@@ -107,11 +107,9 @@ public class BrandServiceImpl implements BrandService {
      */
     @Override
     public void delete(Long[] ids) {
-
-        if (ids != null && ids.length > 0) {
             for (Long id : ids) {
                 brandMapper.deleteByPrimaryKey(id);
             }
-        }
+
     }
 }

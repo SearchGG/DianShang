@@ -3,13 +3,18 @@ package com.pinyougou.sellergoods.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.pingyougou.groupEntity.Specification;
 import com.pingyougou.mapper.TbSpecificationMapper;
+import com.pingyougou.mapper.TbSpecificationOptionMapper;
 import com.pingyougou.pojo.TbSpecification;
 import com.pingyougou.pojo.TbSpecificationExample;
+import com.pingyougou.pojo.TbSpecificationOption;
 import com.pingyougou.sellergoods.SpecificationService;
 import com.pingyougou.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -17,6 +22,9 @@ public class SpecificationServiceImpl implements SpecificationService {
 
     @Autowired
     private TbSpecificationMapper specificationMapper;
+
+    @Autowired
+    private TbSpecificationOptionMapper specificationOptionMapper;
 
 
     /**
@@ -42,5 +50,27 @@ public class SpecificationServiceImpl implements SpecificationService {
 
         Page<TbSpecification> page= (Page<TbSpecification>) specificationMapper.selectByExample(example);
         return new PageResult(page.getTotal(),page.getResult());
+    }
+
+    /**
+     * 新增规格信息
+     * @param specification
+     */
+    @Override
+    public void add(Specification specification) {
+            //添加规格
+            TbSpecification tbSpecification = specification.getTbSpecification();
+            specificationMapper.insert(tbSpecification);
+
+            //添加规格选项
+            List<TbSpecificationOption> specificationOptions = specification.getSpecificationOptions();
+
+                for (TbSpecificationOption specificationOption : specificationOptions) {
+                    //关联规格
+                   specificationOption.setSpecId(tbSpecification.getId());
+                    specificationOptionMapper.insert(specificationOption);
+                }
+
+
     }
 }

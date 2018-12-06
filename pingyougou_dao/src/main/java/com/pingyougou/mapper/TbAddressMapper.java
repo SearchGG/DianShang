@@ -28,4 +28,5 @@ public interface TbAddressMapper {
     int updateByPrimaryKeySelective(TbAddress record);
 
     int updateByPrimaryKey(TbAddress record);
+
 }

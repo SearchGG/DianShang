@@ -5,6 +5,7 @@ import com.pingyougou.pojo.TbSpecification;
 import com.pingyougou.utils.PageResult;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SpecificationService {
 
@@ -22,4 +23,7 @@ public interface SpecificationService {
 
     //删除数据
     public void delete(long[] ids);
+
+    //规格下拉选
+    List<Map> selectOptionList();
 }

@@ -4,6 +4,7 @@ import com.pingyougou.pojo.TbBrand;
 import com.pingyougou.utils.PageResult;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BrandService {
 
@@ -23,4 +24,8 @@ public interface BrandService {
 
     //批量删除
     void delete(Long[] ids);
+    /**
+     * 品牌下拉框数据
+     */
+    List<Map> selectOptionList();
 }

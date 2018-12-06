@@ -24,4 +24,8 @@ app.service('specificationService',function ($http) {
     this.search=function (page,rows,searchEntity) {
         return  $http.post('../specification/search.do?page=' + page + '&rows=' + rows,searchEntity);
     }
+    //下拉列表数据
+    this.selectOptionList=function(){
+        return $http.get('../specification/selectOptionList.do');
+    }
 });

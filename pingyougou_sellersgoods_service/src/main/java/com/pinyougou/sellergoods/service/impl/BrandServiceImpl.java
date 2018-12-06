@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -111,5 +112,11 @@ public class BrandServiceImpl implements BrandService {
                 brandMapper.deleteByPrimaryKey(id);
             }
 
+    }
+    /**
+    * 列表数据
+    */
+    public List<Map> selectOptionList() {
+        return brandMapper.selectOptionList();
     }
 }

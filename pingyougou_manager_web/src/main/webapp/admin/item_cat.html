@@ -15,19 +15,17 @@
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
 	<script src="../plugins/angularjs/angular.min.js"></script>
-	<script src="../plugins/angularjs/pagination.js"></script>
-	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
 	<script src="../js/base.js"></script>
-	<script src="../js/base_pagination.js"></script>
 
 
 	<script src="../js/service/itemCatService.js"></script>
+	<script src="../js/service/typeTemplateService.js"></script>
 	<script src="../js/controller/itemCatController.js"></script>
 	<script src="../js/controller/baseController.js"></script>
     
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="itemCatController" ng-init="findByParentId(0)" >
+<body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="itemCatController" ng-init="findByParentId(0);findTypeTemplateList()" >
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
@@ -49,8 +47,8 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" ng-click="entity={}" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" ng-click="dele()" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
                                         <button type="button" class="btn btn-default" title="刷新" ><i class="fa fa-check"></i> 刷新</button>
                                        
                                     </div>
@@ -74,7 +72,7 @@
 			                      </thead>
 			                      <tbody>
 			                          <tr ng-repeat="entity in list" >
-			                              <td><input  type="checkbox" ></td>			                              
+			                              <td><input  type="checkbox"  ng-click="updateSelection($event,entity.id)" ></td>
 				                          <td>{{entity.id}}</td>
 									      <td>{{entity.name}}</td>
 									      <td>
@@ -84,14 +82,14 @@
 											  <span ng-if="grade!=3">
 		                                     	 <button type="button" ng-click="setGrade(grade+1);selectList(entity)" class="btn bg-olive btn-xs" >查询下级</button>
 		                                 	  </span>
-											  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>
+											  <button type="button" ng-click="findOne(entity.id)" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>
 		                                  </td>
 			                          </tr>
 
 			                      </tbody>
 			                  </table>
 			                  <!--数据列表/-->
-							<tm-pagination conf="paginationConf"></tm-pagination>
+
                         </div>
                         <!-- 数据表格 /-->
                         
@@ -116,24 +114,25 @@
 				<tr>
 		      		<td>上级商品分类</td>
 		      		<td>
-		      		   珠宝 >>  银饰
+						顶级分类列表 <span ng-if="grade>=2"> >> </span>{{entity_1.name}}<span ng-if="grade==3"> >> </span>{{entity_2.name}}
+
 		      		</td>
 		      	</tr>
 		      	<tr>
 		      		<td>商品分类名称</td>
-		      		<td><input  class="form-control" placeholder="商品分类名称">  </td>
+		      		<td><input ng-model="entity.name" class="form-control" placeholder="商品分类名称">  </td>
 		      	</tr>			  
 		      	<tr>
-		      		<td>类型模板</td>
+		      		<td ng-if="grade==3">类型模板</td>
 		      		<td>	      		
-		      			<input select2 config="options['type_template']" placeholder="商品类型模板" class="form-control" type="text"/>
+						<select ng-if="grade==3"  placeholder="商品类型模板" ng-model="entity.typeId" class="form-control" ng-options="type.id as type.name for type in typeTemplateList" ></select>
 		      		</td>		      		      		
 		      	</tr>		      	
 			 </table>				
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success" ng-click="save()" data-dismiss="modal" aria-hidden="true">保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>

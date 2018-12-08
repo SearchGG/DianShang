@@ -30,6 +30,10 @@
 		<headers>
 			<frame-options policy="SAMEORIGIN" />
 		</headers>
+
+		<!--退出登录-->
+		<logout logout-url="/logout"></logout>
+
 	</http>
 	
 	<!-- 认证管理器 -->

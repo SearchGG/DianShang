@@ -64,6 +64,7 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
                         $scope.findByParentId(0);//刷新列表
                     }else{
                         alert(response.message);
+                        $scope.findByParentId(parentId);//刷新当前列表
 
 					}
                 }

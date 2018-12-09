@@ -20,6 +20,8 @@ public class TbSeller implements Serializable {
 
     private String status;
 
+    private String statusStr;//状态0  未审核 1 已审核 2 审核未通过 3 关闭
+
     private String addressDetail;
 
     private String linkmanName;
@@ -114,6 +116,21 @@ public class TbSeller implements Serializable {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getStatusStr() {
+        if (status.equals("0")){
+            return "未审核";
+        }else if(status.equals("1")){
+            return "已审核";
+        }else if (status.equals("2")){
+            return "审核未通过";
+        }
+        return "关闭";
+    }
+
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
     }
 
     public String getAddressDetail() {

@@ -65,7 +65,7 @@
 			                              </th> 
 										  <th class="sorting_asc">分类ID</th>
 									      <th class="sorting">分类名称</th>									   
-									      <th class="sorting">类型模板ID</th>
+									      <th ng-if="grade==3" class="sorting">类型模板ID</th>
 									     						
 					                      <th class="text-center">操作</th>
 			                          </tr>
@@ -75,7 +75,7 @@
 			                              <td><input  type="checkbox"  ng-click="updateSelection($event,entity.id)" ></td>
 				                          <td>{{entity.id}}</td>
 									      <td>{{entity.name}}</td>
-									      <td>
+									      <td ng-if="grade==3">
 									      	{{entity.typeId}}
 									      </td>									      
 		                                  <td class="text-center">

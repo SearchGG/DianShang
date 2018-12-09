@@ -165,5 +165,15 @@ public class SellerServiceImpl implements SellerService {
 		Page<TbSeller> page= (Page<TbSeller>)sellerMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
-	
+
+	@Override
+	public void updateStatus(String sellerId, String status) {
+		//根据公司id查询 公司信息
+		TbSeller seller = sellerMapper.selectByPrimaryKey(sellerId);
+		//设置改id 下的状态
+		seller.setStatus(status);
+		//再次更新公司信息
+		sellerMapper.updateByPrimaryKey(seller);
+	}
+
 }

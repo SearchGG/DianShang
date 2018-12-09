@@ -5,6 +5,7 @@ import com.pingyougou.pojo.TbSeller;
 import com.pingyougou.sellergoods.SellerService;
 import com.pingyougou.utils.PageResult;
 import com.pingyougou.utils.pygResult;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,10 @@ public class SellerController {
 	@RequestMapping("/add")
 	public pygResult add(@RequestBody TbSeller seller){
 		try {
+			//密码加密Bcrpty
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String password = passwordEncoder.encode(seller.getPassword());
+			seller.setPassword(password);
 			sellerService.add(seller);
 			return new pygResult(true, "增加成功");
 		} catch (Exception e) {

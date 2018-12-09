@@ -1,17 +1,17 @@
-package com.pingyougou.manager.controller;
-import java.util.List;
+package com.pingyougou.shop.controller;
 
-
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.pingyougou.groupEntity.Goods;
+import com.pingyougou.pojo.TbGoods;
+import com.pingyougou.sellergoods.GoodsService;
+import com.pingyougou.utils.PageResult;
+import com.pingyougou.utils.pygResult;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.pingyougou.pojo.TbGoods;
-import com.pingyougou.sellergoods.GoodsService;
 
-import com.pingyougou.utils.PageResult;
-import com.pingyougou.utils.pygResult;
+import java.util.List;
 
 /**
  * controller
@@ -52,6 +52,9 @@ public class GoodsController {
 	@RequestMapping("/add")
 	public pygResult add(@RequestBody Goods goods){
 		try {
+			//基于安全框架获取登录信息
+			String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+			goods.getGoods().setSellerId(sellerId);
 			goodsService.add(goods);
 			return new pygResult(true, "增加成功");
 		} catch (Exception e) {

@@ -1,6 +1,9 @@
 package com.pinyougou.sellergoods.service.impl;
 import java.util.List;
 
+import com.pingyougou.groupEntity.Goods;
+import com.pingyougou.mapper.TbGoodsDescMapper;
+import com.pingyougou.pojo.TbGoodsDesc;
 import com.pingyougou.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -23,6 +26,10 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired
 	private TbGoodsMapper goodsMapper;
+
+	@Autowired
+	private TbGoodsDescMapper goodsDescMapper;
+
 	
 	/**
 	 * 查询全部
@@ -46,8 +53,19 @@ public class GoodsServiceImpl implements GoodsService {
 	 * 增加
 	 */
 	@Override
-	public void add(TbGoods goods) {
-		goodsMapper.insert(goods);		
+	public void add(Goods goods) {
+		//保存TbGoods数据
+		TbGoods tbGoods = goods.getGoods();
+		//未审核状态
+		tbGoods.setAuditStatus("0");
+//		tbGoods.setIsDelete("0");
+		goodsMapper.insert(tbGoods);
+		//保存TbGoodsDesc数据
+		TbGoodsDesc tbGoodsDesc = goods.getGoodsDesc();
+		//设置商品id
+		tbGoodsDesc.setGoodsId(tbGoods.getId());
+		goodsDescMapper.insert(tbGoodsDesc);
+
 	}
 
 	

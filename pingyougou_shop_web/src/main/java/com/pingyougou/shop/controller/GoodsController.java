@@ -5,7 +5,7 @@ import com.pingyougou.groupEntity.Goods;
 import com.pingyougou.pojo.TbGoods;
 import com.pingyougou.sellergoods.GoodsService;
 import com.pingyougou.utils.PageResult;
-import com.pingyougou.utils.pygResult;
+import com.pingyougou.utils.Result;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,16 +50,16 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public pygResult add(@RequestBody Goods goods){
+	public Result add(@RequestBody Goods goods){
 		try {
 			//基于安全框架获取登录信息
 			String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
 			goods.getGoods().setSellerId(sellerId);
 			goodsService.add(goods);
-			return new pygResult(true, "增加成功");
+			return new Result(true, "增加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "增加失败");
+			return new Result(false, "增加失败");
 		}
 	}
 	
@@ -69,13 +69,13 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public pygResult update(@RequestBody TbGoods goods){
+	public Result update(@RequestBody TbGoods goods){
 		try {
 			goodsService.update(goods);
-			return new pygResult(true, "修改成功");
+			return new Result(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "修改失败");
+			return new Result(false, "修改失败");
 		}
 	}	
 	
@@ -95,13 +95,13 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public pygResult delete(Long [] ids){
+	public Result delete(Long [] ids){
 		try {
 			goodsService.delete(ids);
-			return new pygResult(true, "删除成功");
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "删除失败");
+			return new Result(false, "删除失败");
 		}
 	}
 	

@@ -51,5 +51,8 @@
     </orderEntry>
     <orderEntry type="module" module-name="pingyougou_pojo" />
     <orderEntry type="module" module-name="pingyougou_common" />
+    <orderEntry type="library" name="Maven: org.csource.fastdfs:fastdfs:1.2" level="project" />
+    <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.2" level="project" />
   </component>
 </module>

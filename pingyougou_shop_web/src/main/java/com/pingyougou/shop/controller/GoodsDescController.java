@@ -4,7 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pingyougou.pojo.TbGoodsDesc;
 import com.pingyougou.sellergoods.GoodsDescService;
 import com.pingyougou.utils.PageResult;
-import com.pingyougou.utils.pygResult;
+import com.pingyougou.utils.Result;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,13 +48,13 @@ public class GoodsDescController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public pygResult add(@RequestBody TbGoodsDesc goodsDesc){
+	public Result add(@RequestBody TbGoodsDesc goodsDesc){
 		try {
 			goodsDescService.add(goodsDesc);
-			return new pygResult(true, "增加成功");
+			return new Result(true, "增加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "增加失败");
+			return new Result(false, "增加失败");
 		}
 	}
 	
@@ -64,13 +64,13 @@ public class GoodsDescController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public pygResult update(@RequestBody TbGoodsDesc goodsDesc){
+	public Result update(@RequestBody TbGoodsDesc goodsDesc){
 		try {
 			goodsDescService.update(goodsDesc);
-			return new pygResult(true, "修改成功");
+			return new Result(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "修改失败");
+			return new Result(false, "修改失败");
 		}
 	}	
 	
@@ -90,13 +90,13 @@ public class GoodsDescController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public pygResult delete(Long [] ids){
+	public Result delete(Long [] ids){
 		try {
 			goodsDescService.delete(ids);
-			return new pygResult(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "删除失败");
+			return new Result(false, "删除失败");
 		}
 	}
 	

@@ -1,17 +1,16 @@
-package com.pingyougou.manager.controller;
-import java.util.List;
+package com.pingyougou.shop.controller;
 
-
-
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pingyougou.pojo.TbTypeTemplate;
 import com.pingyougou.sellergoods.TypeTemplateService;
-
 import com.pingyougou.utils.PageResult;
 import com.pingyougou.utils.Result;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 /**
  * controller
  * @author Administrator
@@ -100,7 +99,6 @@ public class TypeTemplateController {
 			return new Result(false, "删除失败");
 		}
 	}
-	
 		/**
 	 * 查询+分页
 	 * @param

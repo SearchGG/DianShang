@@ -4,7 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pingyougou.pojo.TbItem;
 import com.pingyougou.sellergoods.ItemService;
 import com.pingyougou.utils.PageResult;
-import com.pingyougou.utils.pygResult;
+import com.pingyougou.utils.Result;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,13 +48,13 @@ public class ItemController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public pygResult add(@RequestBody TbItem item){
+	public Result add(@RequestBody TbItem item){
 		try {
 			itemService.add(item);
-			return new pygResult(true, "增加成功");
+			return new Result(true, "增加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "增加失败");
+			return new Result(false, "增加失败");
 		}
 	}
 	
@@ -64,13 +64,13 @@ public class ItemController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public pygResult update(@RequestBody TbItem item){
+	public Result update(@RequestBody TbItem item){
 		try {
 			itemService.update(item);
-			return new pygResult(true, "修改成功");
+			return new Result(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "修改失败");
+			return new Result(false, "修改失败");
 		}
 	}	
 	
@@ -90,13 +90,13 @@ public class ItemController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public pygResult delete(Long [] ids){
+	public Result delete(Long [] ids){
 		try {
 			itemService.delete(ids);
-			return new pygResult(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "删除失败");
+			return new Result(false, "删除失败");
 		}
 	}
 	

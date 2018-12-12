@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller   ,goodsService){	
+app.controller('goodsController' ,function($scope,$controller   ,goodsService,itemCatService,typeTemplateService,uploadService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -80,5 +80,67 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 			}			
 		);
 	}
-    
+    //查询一级分类的列表功能
+	$scope.selectItemCat1List=function () {
+		itemCatService.findByParentId(0).success(function (response) {
+			$scope.itemCat1List=response;
+
+        })
+    }
+    //基于一级分类变化查询二级
+	//参数一 监控发生变化的模型变量 参数二 发生变化后 执行的参数 newValue 监控模板变量变化前的值 oldValue 监控模板变量变化后的值
+ 	$scope.$watch("entity.goods.category1Id",function (newValue,oldValue) {
+        itemCatService.findByParentId(newValue).success(function (response) {
+            $scope.itemCat2List=response;
+            $scope.itemCat3List={};
+
+
+        })
+    })
+    //基于二级分类变化查询三级
+    //参数一 监控发生变化的模型变量 参数二 发生变化后 执行的参数 newValue 监控模板变量变化前的值 oldValue 监控模板变量变化后的值
+    $scope.$watch("entity.goods.category2Id",function (newValue,oldValue) {
+        itemCatService.findByParentId(newValue).success(function (response) {
+            $scope.itemCat3List=response;
+        })
+    })
+    //基于三级分类变化查询模板id
+    //参数一 监控发生变化的模型变量 参数二 发生变化后 执行的参数 newValue 监控模板变量变化前的值 oldValue 监控模板变量变化后的值
+    $scope.$watch("entity.goods.category2Id",function (newValue,oldValue) {
+        itemCatService.findOne(newValue).success(function (response) {
+            $scope.entity.goods.typeTemplateId=response.typeId;
+        })
+    })
+	//基于模板id变化查询品牌
+    //参数一 监控发生变化的模型变量 参数二 发生变化后 执行的参数 newValue 监控模板变量变化前的值 oldValue 监控模板变量变化后的值
+    $scope.$watch("entity.goods.typeTemplateId",function (newValue,oldValue) {
+        typeTemplateService.findOne(newValue).success(function (response) {
+        	$scope.brandList=JSON.parse(response.brandIds);
+        	//扩展属性
+        	$scope.entity.goodsDesc.customAttributeAtems=JSON.parse(response.customAttributeItems)
+
+        })
+    })
+	//商品图片上传
+	$scope.uploadFile=function () {
+		uploadService.uploadFile().success(function (response) {
+			if (response.success){
+				//上传图片 显示
+			$scope.imageEntity.url=response.message;
+			}else{
+				alert(response.message);
+			}
+        })
+    }
+    //初始化
+	$scope.entity={goods:{},goodsDesc:{itemImage:[]},itemList:[]};
+
+	//商品上传到列表中
+	$scope.addImageEntity=function () {
+		$scope.entity.goodsDesc.itemImage.push($scope.imageEntity);
+    }
+	//从商品列表中移除商品图片
+	$scope.deleImageEntity=function (index) {
+        $scope.entity.goodsDesc.itemImage.splice(index,1);
+    }
 });	

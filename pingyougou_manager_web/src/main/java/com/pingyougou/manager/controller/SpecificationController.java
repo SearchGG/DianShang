@@ -7,7 +7,7 @@ import com.pingyougou.groupEntity.Specification;
 import com.pingyougou.pojo.TbSpecification;
 import com.pingyougou.sellergoods.SpecificationService;
 import com.pingyougou.utils.PageResult;
-import com.pingyougou.utils.pygResult;
+import com.pingyougou.utils.Result;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,13 +36,13 @@ public class SpecificationController {
      * @param specification
      */
     @RequestMapping("/add")
-    public pygResult add(@RequestBody Specification specification){
+    public Result add(@RequestBody Specification specification){
         try {
             specificationService.add(specification);
-            return new pygResult(true,"添加成功");
+            return new Result(true,"添加成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new pygResult(false,"添加失败");
+            return new Result(false,"添加失败");
         }
     }
 
@@ -61,13 +61,13 @@ public class SpecificationController {
      * @return
      */
     @RequestMapping("/update")
-    public pygResult update(@RequestBody Specification specification){
+    public Result update(@RequestBody Specification specification){
         try {
             specificationService.update(specification);
-            return new pygResult(true, "修改成功");
+            return new Result(true, "修改成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new pygResult(false, "修改失败");
+            return new Result(false, "修改失败");
         }
     }
 
@@ -77,13 +77,13 @@ public class SpecificationController {
      * @return
      */
     @RequestMapping("/delete")
-    public pygResult delete(long[] ids){
+    public Result delete(long[] ids){
         try {
             specificationService.delete(ids);
-            return new pygResult(true, "删除成功");
+            return new Result(true, "删除成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new pygResult(false, "删除失败");
+            return new Result(false, "删除失败");
         }
     }
     /**

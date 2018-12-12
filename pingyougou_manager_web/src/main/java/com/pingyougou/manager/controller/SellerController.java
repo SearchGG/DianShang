@@ -8,7 +8,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pingyougou.pojo.TbSeller;
 import com.pingyougou.sellergoods.SellerService;
 import com.pingyougou.utils.PageResult;
-import com.pingyougou.utils.pygResult;
+import com.pingyougou.utils.Result;
 /**
  * controller
  * @author Administrator
@@ -46,13 +46,13 @@ public class SellerController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public pygResult add(@RequestBody TbSeller seller){
+	public Result add(@RequestBody TbSeller seller){
 		try {
 			sellerService.add(seller);
-			return new pygResult(true, "增加成功");
+			return new Result(true, "增加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "增加失败");
+			return new Result(false, "增加失败");
 		}
 	}
 	
@@ -62,13 +62,13 @@ public class SellerController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public pygResult update(@RequestBody TbSeller seller){
+	public Result update(@RequestBody TbSeller seller){
 		try {
 			sellerService.update(seller);
-			return new pygResult(true, "修改成功");
+			return new Result(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "修改失败");
+			return new Result(false, "修改失败");
 		}
 	}	
 	
@@ -88,13 +88,13 @@ public class SellerController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public pygResult delete(String [] ids){
+	public Result delete(String [] ids){
 		try {
 			sellerService.delete(ids);
-			return new pygResult(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "删除失败");
+			return new Result(false, "删除失败");
 		}
 	}
 	
@@ -115,13 +115,13 @@ public class SellerController {
 	 * @return
 	 */
 	@RequestMapping("/updateStatus")
-	public pygResult updateStatus(String sellerId,String status){
+	public Result updateStatus(String sellerId, String status){
 		try {
 			sellerService.updateStatus(sellerId,status);
-			return new pygResult(true, "审核通过");
+			return new Result(true, "审核通过");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new pygResult(false, "审核未通过");
+			return new Result(false, "审核未通过");
 		}
 	}
 }

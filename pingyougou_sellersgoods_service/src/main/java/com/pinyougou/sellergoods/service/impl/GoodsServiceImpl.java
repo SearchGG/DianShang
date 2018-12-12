@@ -14,6 +14,7 @@ import com.pingyougou.pojo.TbGoods;
 import com.pingyougou.pojo.TbGoodsExample;
 import com.pingyougou.pojo.TbGoodsExample.Criteria;
 import com.pingyougou.sellergoods.GoodsService;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -22,6 +23,7 @@ import com.pingyougou.sellergoods.GoodsService;
  *
  */
 @Service
+@Transactional
 public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired

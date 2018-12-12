@@ -118,7 +118,11 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
         	$scope.brandList=JSON.parse(response.brandIds);
         	//扩展属性
         	$scope.entity.goodsDesc.customAttributeAtems=JSON.parse(response.customAttributeItems)
-
+			
+        });
+        //查询模板关联的规格列表数据
+        typeTemplateService.findSpecList(newValue).success(function (response) {
+			$scope.specList=response;
         })
     })
 	//商品图片上传
@@ -133,7 +137,7 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
         })
     }
     //初始化
-	$scope.entity={goods:{},goodsDesc:{itemImage:[]},itemList:[]};
+	$scope.entity={goods:{},goodsDesc:{itemImage:[],specificationItems:[]},itemList:[]};
 
 	//商品上传到列表中
 	$scope.addImageEntity=function () {
@@ -143,4 +147,32 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
 	$scope.deleImageEntity=function (index) {
         $scope.entity.goodsDesc.itemImage.splice(index,1);
     }
+
+
+
+    //规格选项勾选与取消
+    $scope.updateSpecAttribute=function ($event,specName,specOption) {
+
+	  var specObject =  $scope.getObjectByValue($scope.entity.goodsDesc.specificationItems,"attributeName",specName);
+	  if(specObject!=null){//存在规格数据
+            if ($event.target.checked){//勾选
+                specObject.attributeValue.push(specOption);
+            }else{//取消
+               var index = specObject.attributeValue.indexOf(specOption);
+                specObject.attributeValue.splice(index,1)
+
+                //判断如果改规格全部取消
+                if (specObject.attributeValue.length==0){
+                    //从规格列表中移除改规格
+                    var index1=$scope.entity.goodsDesc.specificationItems.indexOf(specObject);
+                    $scope.entity.goodsDesc.specificationItems.splice(index1,1);
+                }
+            }
+        }else{//不存在
+            $scope.entity.goodsDesc.specificationItems.push({"attributeName":specName,"attributeValue":[specOption]});
+
+	    }
+    }
+
+
 });	

@@ -39,4 +39,19 @@ app.controller("baseController",function ($scope) {
         }
         return value;
     };
+
+    //从数组中根据对象属性值判断该对象是否存在与数组中
+
+    $scope.getObjectByValue=function (list,key,value) {
+        for (var i=0;i<list.length;i++){
+            if (list[i][key]==value){
+                return list[i];
+            }
+        }
+        return null;
+
+    }
+
+
+
 })

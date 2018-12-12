@@ -1,5 +1,7 @@
 package com.pingyougou.sellergoods;
 import java.util.List;
+import java.util.Map;
+
 import com.pingyougou.pojo.TbTypeTemplate;
 
 import com.pingyougou.utils.PageResult;
@@ -58,5 +60,6 @@ public interface TypeTemplateService {
 	 * @return
 	 */
 	public PageResult findPage(TbTypeTemplate typeTemplate, int pageNum, int pageSize);
-	
+
+    List<Map> findSpecList(Long id);
 }

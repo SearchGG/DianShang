@@ -29,7 +29,7 @@
  
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="goodsController" >
+<body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="goodsController" ng-init="selectItemCatList()" >
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
@@ -91,9 +91,9 @@
 				                          <td>{{pojo.id}}</td>
 									      <td>{{pojo.goodsName}}</td>
 									      <td>{{pojo.price}}</td>
-									      <td>{{pojo.category1Id}}</td>
-									      <td>{{pojo.category2Id}}</td>
-									      <td>{{pojo.category3Id}}</td>
+									      <td>{{itemCatList[pojo.category1Id]}}</td>
+									      <td>{{itemCatList[pojo.category2Id]}}</td>
+									      <td>{{itemCatList[pojo.category3Id]}}</td>
 		                                  <td>
 		                                  	<span>
 		                                  		{{status[pojo.auditStatus]}}

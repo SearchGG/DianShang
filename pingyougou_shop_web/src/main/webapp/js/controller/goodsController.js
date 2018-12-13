@@ -204,4 +204,16 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
 
     //定义商品状态数组
     $scope.status=['未审核','已审核','审核未通过','关闭'];
+
+    $scope.itemCatList=[];
+	//查询分类列表
+    $scope.selectItemCatList=function () {
+        itemCatService.findAll().success(function (response) {
+            for (var i=0;i<response.length;i++){
+                //定义分类列表
+                $scope.itemCatList[response[i].id]=response[i].name;
+            }
+        })
+    }
+
 });	

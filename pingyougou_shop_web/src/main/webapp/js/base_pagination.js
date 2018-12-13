@@ -1,1 +1,1 @@
-var app=angular.module("pingyougou",['pagination']);
+var app=angular.module("pyg",['pagination']);

@@ -106,7 +106,7 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
     })
     //基于三级分类变化查询模板id
     //参数一 监控发生变化的模型变量 参数二 发生变化后 执行的参数 newValue 监控模板变量变化前的值 oldValue 监控模板变量变化后的值
-    $scope.$watch("entity.goods.category2Id",function (newValue,oldValue) {
+    $scope.$watch("entity.goods.category3Id",function (newValue,oldValue) {
         itemCatService.findOne(newValue).success(function (response) {
             $scope.entity.goods.typeTemplateId=response.typeId;
         })
@@ -117,14 +117,14 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
         typeTemplateService.findOne(newValue).success(function (response) {
         	$scope.brandList=JSON.parse(response.brandIds);
         	//扩展属性
-        	$scope.entity.goodsDesc.customAttributeAtems=JSON.parse(response.customAttributeItems)
-			
+        	$scope.entity.goodsDesc.customAttributeItems=JSON.parse(response.customAttributeItems)
         });
         //查询模板关联的规格列表数据
         typeTemplateService.findSpecList(newValue).success(function (response) {
 			$scope.specList=response;
+            $scope.entity.itemList=[];
         })
-    })
+    });
 	//商品图片上传
 	$scope.uploadFile=function () {
 		uploadService.uploadFile().success(function (response) {
@@ -137,15 +137,15 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
         })
     }
     //初始化
-	$scope.entity={goods:{},goodsDesc:{itemImage:[],specificationItems:[]},itemList:[]};
+	$scope.entity={goods:{isEnableSpec:"1"},goodsDesc:{itemImages:[],specificationItems:[]},itemList:[]};
 
 	//商品上传到列表中
 	$scope.addImageEntity=function () {
-		$scope.entity.goodsDesc.itemImage.push($scope.imageEntity);
+		$scope.entity.goodsDesc.itemImages.push($scope.imageEntity);
     }
 	//从商品列表中移除商品图片
 	$scope.deleImageEntity=function (index) {
-        $scope.entity.goodsDesc.itemImage.splice(index,1);
+        $scope.entity.goodsDesc.itemImages.splice(index,1);
     }
 
 
@@ -159,7 +159,7 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
                 specObject.attributeValue.push(specOption);
             }else{//取消
                var index = specObject.attributeValue.indexOf(specOption);
-                specObject.attributeValue.splice(index,1)
+                specObject.attributeValue.splice(index,1);
 
                 //判断如果改规格全部取消
                 if (specObject.attributeValue.length==0){
@@ -173,6 +173,35 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
 
 	    }
     }
+    //创建SKU列表
+    $scope.createItemList=function () {
+	    //初始化sku列表
+        $scope.entity.itemList=[{spec:{},price:0,num:999,status:'1',isDefault:'0'}];
 
+        var items=$scope.entity.goodsDesc.specificationItems;
+       //全部取消
+        if (items.length==0){
+           $scope.entity.itemList=[];
+       }
 
+        for (var i=0;i<items.length;i++){
+            $scope.entity.itemList = addColumn( $scope.entity.itemList,items[i].attributeName,items[i].attributeValue );
+        }
+    }
+    //添加列值
+    addColumn=function(list,columnName,conlumnValues){
+        var newList=[];//新的集合
+        for(var i=0;i<list.length;i++){
+            var oldRow= list[i];
+            for(var j=0;j<conlumnValues.length;j++){
+                var newRow= JSON.parse( JSON.stringify( oldRow ) );//深克隆
+                newRow.spec[columnName]=conlumnValues[j];
+                newList.push(newRow);
+            }
+        }
+        return newList;
+    }
+
+    //定义商品状态数组
+    $scope.status=['未审核','已审核','审核未通过','关闭'];
 });	

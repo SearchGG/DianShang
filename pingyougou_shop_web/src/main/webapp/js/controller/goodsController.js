@@ -214,6 +214,18 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,it
                 $scope.itemCatList[response[i].id]=response[i].name;
             }
         })
+    };
+    //定义商品上下架状态数组
+    $scope.isMarketable=['下架','上架'];
+    //商品上下架
+	$scope.updateIsMarketable=function (isMarketable) {
+		goodsService.updateIsMarketable($scope.selectIds,isMarketable).success(function (response) {
+			if (response.success){
+				$scope.reloadList();
+				$scope.selectIds=[];
+			}else{
+				alert(response.message);
+			}
+        })
     }
-
 });	

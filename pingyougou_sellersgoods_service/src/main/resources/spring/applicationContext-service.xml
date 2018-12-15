@@ -10,11 +10,11 @@
 	<!--dubbo协议端口号配置 默认端口：20880-->
     <dubbo:protocol name="dubbo" port="20881"></dubbo:protocol>
 	<!--提供服务的项目名称-->
-	<dubbo:application name="pinyougou_sellergoods_service"/>
+	<dubbo:application name="pingyougou_sellergoods_service"/>
 	<!--注册中心地址-->
     <dubbo:registry address="zookeeper://192.168.25.128:2181"/>
 	<!--dubbo包扫描，发布服务-->
-    <dubbo:annotation package="com.pinyougou.sellergoods.service.impl" />
+    <dubbo:annotation package="com.pingyougou.sellergoods.service.impl" />
 	<!--连接服务超时时间设置 默认：1000-->
     <dubbo:provider timeout="50000"/>
    

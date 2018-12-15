@@ -119,5 +119,21 @@ public class GoodsController {
 		goods.setSellerId(sellerId);
 		return goodsService.findPage(goods, page, rows);
 	}
-	
+	/**
+	 * 商品上下架
+	 * @param
+	 * @return
+	 */
+	@RequestMapping("/updateIsMarketable")
+	public Result updateIsMarketable(Long[] ids,String isMarketable){
+		try {
+			goodsService.updateIsMarketable(ids, isMarketable);
+			return new Result(true, "上架成功");
+		}catch (RuntimeException e){
+			return new Result (false, e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "上架失败");
+		}
+	}
 }

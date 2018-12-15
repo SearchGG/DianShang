@@ -15,6 +15,9 @@
         <module>pingyougou_sellersgoods_service</module>
         <module>pingyougou_manager_web</module>
         <module>pingyougou_common</module>
+        <module>pingyougou_content_interface</module>
+        <module>pingyougou_content_service</module>
+        <module>pingyougou_protal_web</module>
     </modules>
     <packaging>pom</packaging>
     <!-- 集中定义依赖版本号 -->

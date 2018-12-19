@@ -1,16 +1,24 @@
 package com.pingyougou.pojo;
 
+import org.apache.solr.client.solrj.beans.Field;
+import org.springframework.data.solr.core.mapping.Dynamic;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
 public class TbItem implements Serializable {
+
+    @Field("id")
     private Long id;
 
+    @Field("item_title")
     private String title;
 
     private String sellPoint;
 
+    @Field("item_price")
     private BigDecimal price;
 
     private Integer stockCount;
@@ -19,6 +27,7 @@ public class TbItem implements Serializable {
 
     private String barcode;
 
+    @Field("item_image")
     private String image;
 
     private Long categoryid;
@@ -27,6 +36,7 @@ public class TbItem implements Serializable {
 
     private Date createTime;
 
+    @Field("item_updatetime")
     private Date updateTime;
 
     private String itemSn;
@@ -37,19 +47,39 @@ public class TbItem implements Serializable {
 
     private String isDefault;
 
+    @Field("item_goodsid")
     private Long goodsId;
 
     private String sellerId;
 
     private String cartThumbnail;
 
+    @Field("item_category")
     private String category;
 
+    @Field("item_brand")
     private String brand;
 
     private String spec;
 
+    @Field("item_seller")
     private String seller;
+
+    /**
+     * 配置规格动态与
+     * @return
+     */
+    @Dynamic
+    @Field("item_spec_*")
+    private Map<String,String> specMap;
+
+    public Map<String, String> getSpecMap() {
+        return specMap;
+    }
+
+    public void setSpecMap(Map<String, String> specMap) {
+        this.specMap = specMap;
+    }
 
     public Long getId() {
         return id;

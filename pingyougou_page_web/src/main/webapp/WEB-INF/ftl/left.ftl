@@ -209,33 +209,13 @@
 						<div class="clearfix"></div>
 						<div class="tab-content tab-wraped">
 							<div id="one" class="tab-pane active">
-								<ul class="goods-intro unstyled">
-									<li>分辨率：1920*1080(FHD)</li>
-									<li>后置摄像头：1200万像素</li>
-									<li>前置摄像头：500万像素</li>
-									<li>核 数：其他</li>
-									<li>频 率：以官网信息为准</li>
-									<li>品牌： Apple</li>
-									<li>商品名称：APPLEiPhone 6s Plus</li>
-									<li>商品编号：1861098</li>
-									<li>商品毛重：0.51kg</li>
-									<li>商品产地：中国大陆</li>
-									<li>热点：指纹识别，Apple Pay，金属机身，拍照神器</li>
-									<li>系统：苹果（IOS）</li>
-									<li>像素：1000-1600万</li>
-									<li>机身内存：64GB</li>
-								</ul>
-								<div class="intro-detail">
-									<img src="img/_/intro01.png" />
-									<img src="img/_/intro02.png" />
-									<img src="img/_/intro03.png" />
-								</div>
+								${goods.goodsDesc.introduction!""}
 							</div>
 							<div id="two" class="tab-pane">
-								<p>规格与包装</p>
+								<p>${goods.goodsDesc.packageList!""}</p>
 							</div>
 							<div id="three" class="tab-pane">
-								<p>售后保障</p>
+								<p>${goods.goodsDesc.saleService!""}</p>
 							</div>
 							<div id="four" class="tab-pane">
 								<p>商品评价</p>

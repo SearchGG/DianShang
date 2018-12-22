@@ -14,6 +14,7 @@ import com.pingyougou.pojo.TbItemExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,9 @@ public class ItemPageServiceImpl implements ItemPageSerivce {
     @Autowired
     private TbItemCatMapper tbItemCatMapper;
 
-    public Goods findOne(Long goodId){
+
+    @Override
+    public Goods findOne(Long goodId) {
         //根据goodId查询商品
         TbGoods tbGoods = tbGoodsMapper.selectByPrimaryKey(goodId);
         //根据goodId查询GoodDesc
@@ -67,6 +70,4 @@ public class ItemPageServiceImpl implements ItemPageSerivce {
 
         return goods;
     }
-
-
 }

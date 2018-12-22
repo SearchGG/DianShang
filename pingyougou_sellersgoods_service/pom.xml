@@ -81,6 +81,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.pingyougou</groupId>
             <artifactId>pingyougou_sellergoods_interface</artifactId>
             <version>1.0-SNAPSHOT</version>

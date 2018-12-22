@@ -72,7 +72,7 @@ public class SolrDemo {
      */
     @Test
     public void deleteAll() {
-        SolrDataQuery query=new SimpleQuery("*.*");
+        SolrDataQuery query=new SimpleQuery("*:*");
         solrTemplate.delete(query);
         solrTemplate.commit();
     }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context   
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jms
+		http://www.springframework.org/schema/jms/spring-jms.xsd">
+	
+    <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->  
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">  
+	    <property name="brokerURL" value="tcp://192.168.25.128:61616"/>
+	</bean>
+	   
+    <!-- Spring用于管理真正的ConnectionFactory的ConnectionFactory -->  
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">  
+	<!-- 目标ConnectionFactory对应真实的可以产生JMS Connection的ConnectionFactory -->  
+	    <property name="targetConnectionFactory" ref="targetConnectionFactory"/>  
+	</bean>
+
+
+	<!--这个是商品上架同步到索引库 -->
+	<bean id="addItemSolrDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="add_item_solr"/>
+	</bean>
+	
+	<!-- 商品上架监听类 -->
+	<bean id="addItemSolrMessageListener" class="com.pingyougou.search.listener.AddItemSolrMessageListener"></bean>
+	<!-- 消息监听容器 -->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="addItemSolrDestination" />
+		<property name="messageListener" ref="addItemSolrMessageListener" />
+	</bean>
+	<!--这个是商品下架同步到索引库进行删除 -->
+	<bean id="deleItemSolrDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="dele_item_solr"/>
+	</bean>
+	<!-- 商品下架监听类 -->
+	<bean id="deleItemSolrMessageListener" class="com.pingyougou.search.listener.DeleItemSolrMessageListener"></bean>
+	<!-- 消息监听容器 -->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="deleItemSolrDestination" />
+		<property name="messageListener" ref="deleItemSolrMessageListener" />
+	</bean>
+</beans>

@@ -7,6 +7,14 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!--//静态页面配置-->
+	<bean id="freemarkerConfig"
+		  class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/ftl/" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
 	<!--dubbo协议端口号配置 默认端口：20880-->
     <dubbo:protocol name="dubbo" port="20884"></dubbo:protocol>
 	<!--提供服务的项目名称-->
@@ -17,5 +25,6 @@
     <dubbo:annotation package="com.pingyougou.page.service.impl" />
 	<!--连接服务超时时间设置 默认：1000-->
     <dubbo:provider timeout="50000"/>
+
    
 </beans>

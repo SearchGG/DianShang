@@ -15,7 +15,14 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.pingyougou.pojo.TbGoodsExample.Criteria;
 import com.pingyougou.sellergoods.GoodsService;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 
 
 /**
@@ -224,6 +231,21 @@ public class GoodsServiceImpl implements GoodsService {
         }
     }
 
+
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    @Autowired
+    private Destination addItemSolrDestination;
+
+    @Autowired
+    private Destination deleItemSolrDestination;
+
+    @Autowired
+    private Destination addItemPageDestination;
+
+    @Autowired
+    private Destination deleItemPageDestination;
     /**
      * 商品上下架
      * @param ids
@@ -231,9 +253,45 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public void updateIsMarketable(Long[] ids, String isMarketable) {
         for (Long id : ids) {
+
             TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
             //只有审核通过的
             if ("1".equals(tbGoods.getAuditStatus())){
+                //上架
+                if ("1".equals(isMarketable)){
+                    jmsTemplate.send(addItemSolrDestination,new MessageCreator() {
+                        @Override
+                        public Message createMessage(Session session) throws JMSException {
+                            return session.createTextMessage(id+"");
+                        }
+                    });
+                    //静态页面生成
+                    jmsTemplate.send(addItemPageDestination, new MessageCreator() {
+                        @Override
+                        public Message createMessage(Session session) throws JMSException {
+                            return session.createTextMessage(id+"");
+                        }
+                    });
+
+                }
+                //下架
+                if ("0".equals(isMarketable)){
+                    jmsTemplate.send(deleItemSolrDestination,new MessageCreator() {
+                                @Override
+                                public Message createMessage(Session session) throws JMSException {
+                                    return session.createTextMessage(id+"");
+                                }
+                    });
+                    //静态页面删除
+                    jmsTemplate.send(deleItemPageDestination, new MessageCreator() {
+                        @Override
+                        public Message createMessage(Session session) throws JMSException {
+                            return session.createTextMessage(id+"");
+                        }
+                    });
+
+                }
+
                 tbGoods.setIsMarketable(isMarketable);
                 goodsMapper.updateByPrimaryKey(tbGoods);
             }else{

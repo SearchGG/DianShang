@@ -257,6 +257,9 @@ public class GoodsServiceImpl implements GoodsService {
             TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
             //只有审核通过的
             if ("1".equals(tbGoods.getAuditStatus())){
+
+                tbGoods.setIsMarketable(isMarketable);
+                goodsMapper.updateByPrimaryKey(tbGoods);
                 //上架
                 if ("1".equals(isMarketable)){
                     jmsTemplate.send(addItemSolrDestination,new MessageCreator() {
@@ -289,11 +292,8 @@ public class GoodsServiceImpl implements GoodsService {
                             return session.createTextMessage(id+"");
                         }
                     });
-
                 }
 
-                tbGoods.setIsMarketable(isMarketable);
-                goodsMapper.updateByPrimaryKey(tbGoods);
             }else{
                 throw new RuntimeException("该商品未审核");
             }

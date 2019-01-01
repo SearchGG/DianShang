@@ -25,10 +25,21 @@
         <module>pingyougou_page_interface</module>
         <module>pingyougou_page_service</module>
         <module>pingyougou_page_web</module>
+        <module>pingyougou_pay_interface</module>
+        <module>pingyougou_pay_service</module>
         <module>pingyougou_sms</module>
         <module>pingyougou_user_interface</module>
         <module>pingyougou_user_service</module>
         <module>pingyougou_user_web</module>
+        <module>pingyougou_cart_interface</module>
+        <module>pingyougou_cart_service</module>
+        <module>pingyougou_cart_web</module>
+        <module>pingyougou_order_interface</module>
+        <module>pingyougou_order_service</module>
+        <module>pingyougou_seckill_interface</module>
+        <module>pingyougou_seckill_service</module>
+        <module>pingyougou_seckill_web</module>
+        <module>pingyougou_seckill_task</module>
     </modules>
     <packaging>pom</packaging>
     <!-- 集中定义依赖版本号 -->

@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import util.FastDFSClient;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/upload")
 public class UploadController {
+
+
 
     @Value("${FILE_SERVER_URL}")
     private String FILE_SERVER_URL;

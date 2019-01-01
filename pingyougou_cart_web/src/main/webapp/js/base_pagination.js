@@ -1,0 +1,1 @@
+var app = angular.module('pyg', ['pagination']);//定义模块
